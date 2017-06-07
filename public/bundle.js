@@ -11036,7 +11036,7 @@ var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Words = __webpack_require__(234);
+var _Words = __webpack_require__(102);
 
 var _Words2 = _interopRequireDefault(_Words);
 
@@ -11065,7 +11065,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(33);
 
-var _words = __webpack_require__(235);
+var _words = __webpack_require__(104);
 
 var _words2 = _interopRequireDefault(_words);
 
@@ -11115,8 +11115,109 @@ thunk.withExtraArgument = createThunkMiddleware;
 exports['default'] = thunk;
 
 /***/ }),
-/* 101 */,
-/* 102 */,
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.hideWords = exports.receiveWords = undefined;
+exports.getWords = getWords;
+
+var _superagent = __webpack_require__(227);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var receiveWords = exports.receiveWords = function receiveWords(words) {
+  return {
+    type: 'RECEIVE_WORDS',
+    words: words
+  };
+};
+
+var hideWords = exports.hideWords = function hideWords() {
+  return {
+    type: 'HIDE_WORDS'
+  };
+};
+
+function getWords() {
+  return function (dispatch) {
+    _superagent2.default.get('/api/words').end(function (err, res) {
+      if (err) {
+        console.error(err.message);
+        return;
+      }
+      dispatch(receiveWords(res.body));
+    });
+  };
+}
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(20);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(55);
+
+var _words = __webpack_require__(101);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var renderWord = function renderWord(word, key) {
+  return _react2.default.createElement(
+    'p',
+    { key: key },
+    word.bias
+  );
+};
+
+var Words = function Words(_ref) {
+  var words = _ref.words,
+      dispatch = _ref.dispatch;
+  return _react2.default.createElement(
+    'div',
+    { className: 'flex-grid' },
+    _react2.default.createElement(
+      'button',
+      { onClick: function onClick() {
+          return dispatch((0, _words.getWords)());
+        } },
+      'Dictionary'
+    ),
+    words.map(renderWord),
+    _react2.default.createElement(
+      'button',
+      { onClick: function onClick() {
+          return dispatch((0, _words.hideWords)());
+        } },
+      'Close'
+    )
+  );
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return { words: state.words };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Words);
+
+/***/ }),
 /* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11160,7 +11261,35 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /***/ }),
-/* 104 */,
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function words() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'RECEIVE_WORDS':
+      return [].concat(_toConsumableArray(action.words));
+    case 'HIDE_WORDS':
+      return [];
+    default:
+      return state;
+  }
+}
+
+exports.default = words;
+
+/***/ }),
 /* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26031,122 +26160,6 @@ module.exports = function(module) {
 	return module;
 };
 
-
-/***/ }),
-/* 234 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(20);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(55);
-
-var _words = __webpack_require__(236);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var renderWord = function renderWord(word, key) {
-  return _react2.default.createElement(
-    'h1',
-    { key: key },
-    word.text
-  );
-};
-
-var Words = function Words(_ref) {
-  var words = _ref.words,
-      dispatch = _ref.dispatch;
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'h1',
-      null,
-      'List of words'
-    ),
-    dispatch((0, _words.getWords)()),
-    words.map(renderWord)
-  );
-};
-
-var mapStateToProps = function mapStateToProps(state) {
-  return { words: state.words };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Words);
-
-/***/ }),
-/* 235 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function words() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'RECEIVE_WORDS':
-      return [].concat(_toConsumableArray(action.words));
-    default:
-      return state;
-  }
-}
-
-exports.default = words;
-
-/***/ }),
-/* 236 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.receiveWords = undefined;
-exports.getWords = getWords;
-
-var _superagent = __webpack_require__(227);
-
-var _superagent2 = _interopRequireDefault(_superagent);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var receiveWords = exports.receiveWords = function receiveWords(words) {
-  return {
-    type: 'RECEIVE_WORDS',
-    words: words
-  };
-};
-
-function getWords() {
-  return function (dispatch) {
-    _superagent2.default.get('/api/words').end(function (err, res) {
-      if (err) {
-        console.error(err.message);
-        return;
-      }
-      dispatch(receiveWords(res.body));
-    });
-  };
-}
 
 /***/ })
 /******/ ]);

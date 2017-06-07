@@ -1,17 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {getWords} from '../actions/words'
+import {getWords, hideWords} from '../actions/words'
 
 const renderWord = (word, key) => (
-  <h1 key={key}>{word.text}</h1>
+  <p key={key}>{word.bias}</p>
 )
 
 const Words = ({words, dispatch}) => (
-  <div>
-    <h1>List of words</h1>
-    {dispatch(getWords())}
+  <div className='flex-grid'>
+    <button onClick={() => dispatch(getWords())}>Dictionary</button>
     {words.map(renderWord)}
+    <button onClick={() => dispatch(hideWords())}>Close</button>
   </div>
 )
 

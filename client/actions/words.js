@@ -7,6 +7,12 @@ export const receiveWords = (words) => {
   }
 }
 
+export const hideWords = () => {
+  return {
+    type: 'HIDE_WORDS'
+  }
+}
+
 export function getWords () {
   return (dispatch) => {
     request
