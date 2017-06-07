@@ -1,10 +1,10 @@
 import React from 'react'
 
-import Greetings from './Greetings'
+import Words from './Words'
 
 const App = () => (
   <div className='app-container'>
-    <Greetings />
+    <Words />
   </div>
 )
 
