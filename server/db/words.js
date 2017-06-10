@@ -1,8 +1,16 @@
-const getWords = (db) => {
+module.exports = {
+  getWords,
+  getBias
+}
+
+function getWords (db) {
   return db('words')
     .select('*')
 }
 
-module.exports = {
-  getWords
+function getBias (bias, db){
+  return db('words')
+    .where('bias','=', bias)
+    .select('bias', 'neutral', 'notes')
+    .first()
 }

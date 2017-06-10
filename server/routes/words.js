@@ -13,4 +13,14 @@ router.get('/', (req, res) => {
   })
 })
 
+router.get('/bias', (req, res) => {
+  db.getBias(req.query.bias, req.app.get('db'))
+    .then((word) => {
+      res.json(word)
+    })
+    .catch((err) => {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
 module.exports = router
