@@ -1,22 +1,22 @@
 import request from 'superagent'
 
-export const receiveWords = (words) => {
+export const searchWord = (bias) => {
   return {
-    type: 'SEARCH_WORDS',
-    words
+    type: 'SEARCH_WORD',
+    bias
   }
 }
 
-export function getWords () {
+export function getBias (bias) {
   return (dispatch) => {
     request
-      .get(`/api/words`)
+      .get('/api/words' + '/bias?bias=' + bias.bias)
       .end((err, res) => {
         if (err) {
           console.error(err.message)
           return
         }
-        dispatch(receiveWords(res.body))
-      })
-  }
+          dispatch(searchWord(res.body))
+        })
+    }
 }
