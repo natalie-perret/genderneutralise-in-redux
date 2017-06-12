@@ -1,8 +1,7 @@
 function search (state = {}, action) {
   switch (action.type) {
     case 'SEARCH_WORD':
-      return action.words
-      console.log(action);
+      return action.wordData
     default:
       return state
   }
