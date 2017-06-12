@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {getWordDetails} from '../actions/details'
+import {getWordDetails} from '../actions'
 
 function SearchResult ({word}) {
   return(
