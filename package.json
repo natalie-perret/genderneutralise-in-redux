@@ -1,18 +1,20 @@
 {
   "name": "boilerplate-react-webpack",
   "version": "0.1.1",
-  "description": "A webpack React starter",
+  "description": "personal project in redux",
   "repository": "https://github.com/dev-academy-challenges/boilerplate-react-webpack.git",
   "main": "server/index.js",
   "scripts": {
+    "knex": "knex",
     "dev": "nodemon --watch server server/index & webpack --watch",
     "start": "node server/index",
     "test": "ava  -v 'test/**/*.test.js'",
+    "import": "node import",
     "watch": "nodemon -e js,jsx -x npm test",
     "h:deploy": "git push heroku master",
     "h:migrate": "heroku run knex migrate:latest",
     "h:rollback": "heroku run knex migrate:rollback",
-    "h:seed": "heroku run knex seed:run"
+    "h:seed": "heroku run npm run import"
   },
   "ava": {
     "require": "babel-register",
@@ -25,7 +27,7 @@
       "stage-0"
     ]
   },
-  "author": "EDA",
+  "author": "NP",
   "license": "ISC",
   "devDependencies": {
     "ava": "^0.19.1",
@@ -38,6 +40,7 @@
     "enzyme": "^2.8.2",
     "jsdom": "^11.0.0",
     "jsx-loader": "^0.13.2",
+    "nock": "^9.0.13",
     "nodemon": "^1.11.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -51,9 +54,11 @@
     "body-parser": "^1.15.2",
     "cors": "^2.8.3",
     "express": "^4.14.0",
+    "fast-csv": "^2.4.0",
     "knex": "^0.13.0",
     "pg": "^6.2.3",
     "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "superagent": "^2.2.0"
